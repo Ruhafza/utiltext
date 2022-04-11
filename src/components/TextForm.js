@@ -32,11 +32,13 @@ export default function TextForm(props) {
       props.showAlert("Copied to clipboard","success")
 
   /* Select the text field */
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+     copyText.select();
+  //copyText.setSelectionRange(0, 99999); /* For mobile devices */
+  
 
    /* Copy the text inside the text field */
-  navigator.clipboard.writeText(copyText.value);
+     navigator.clipboard.writeText(copyText.value);
+     document.getSelection().removeAllRanges();
     }
 
     const toggleStyle=()=>{
@@ -76,7 +78,7 @@ export default function TextForm(props) {
 
   return (
     <>
-      <div className="container" style={{color:myStyle.color==='white'?'white':'black'}}>
+      <div className="container" style={{color:myStyle.color==='white'?'white':'black'}} >
     <h1>Enter the text here</h1>
   </div>
     
@@ -92,18 +94,18 @@ export default function TextForm(props) {
 
 
 </div>
-<button className="btn btn-primary mx-1" onClick={handleUpClick}>change to Uppercase</button>
-<button className="btn btn-primary mx-1" onClick={handleLowerClick}>change to Lowercase</button>
-<button className="btn btn-primary mx-1" onClick={handleClearClick}>clear text</button>
-<button className="btn btn-primary mx-1" onClick={handleT2SClick}>text to speech</button>
-<button className="btn btn-primary mx-1" onClick={handleCopyClick}>copy to clickboard</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>change to Uppercase</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleLowerClick}>change to Lowercase</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleClearClick}>clear text</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleT2SClick}>text to speech</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleCopyClick}>copy to clickboard</button>
 
 
 
 </div>
 <div className="container my-3" style={{color:myStyle.color==='white'?'white':'black'}} id="enter">
   <h4>Text Summary</h4>
-  <p>{text.length>0?text.trim().split(" ").length:0} words and {text.length} characters</p>
+  <p>{text.length>0?text.trim().split(/\s+/).length:0} words and {text.length} characters</p>
   <p>{(text.length>0?text.trim().split(" ").length:0)*0.008} minutes taken to read</p>
 </div>
 </>
